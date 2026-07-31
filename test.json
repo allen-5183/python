@@ -1,0 +1,51 @@
+{
+  // 指定 Task 設定檔的版本，2.0.0 為 VS Code 的標準格式版本
+  "version": "2.0.0",
+ 
+  // 任務清單陣列，可包含多個自動化任務
+  "tasks": [
+    {
+      // 任務的顯示名稱，會出現在 VS Code 任務選單與終端機頁籤上
+      "label": "Auto Terminal",
+ 
+      // 指定任務類型為 Shell 命令（使用系統命令列執行）
+      "type": "shell",
+ 
+      // 要執行的主要程式命令（此處為 Windows 的命令提示字元 cmd.exe）
+      "command": "cmd.exe",
+ 
+      // 傳遞給 command (cmd.exe) 的參數列表
+      "args": [
+        // /k 參數：執行完後續命令後「保持 CMD 開啟狀態」，不自動關閉視窗
+        "/k",
+ 
+        // 先將 CMD 編碼切換為 UTF-8 (65001)，接著載入並啟用指定的 Python 虛擬環境
+        "chcp 65001 && call C:\\dvds\\Scripts\\activate.bat"
+      ],
+ 
+      // 將任務標示為背景長駐服務，告訴 VS Code 不需要等待它執行結束（可避免跳出「按任意鍵關閉終端機」提示）
+      "isBackground": true,
+ 
+      // 控制終端機面板的顯示方式與行為
+      "presentation": {
+        // 為此任務建立專屬的獨立終端機面板 (dedicated)
+        "panel": "dedicated",
+ 
+        // 任務觸發時，總是 (always) 自動顯示/跳出終端機面板
+        "reveal": "always",
+ 
+        // 終端機開啟後，自動將滑鼠游標焦點移至該終端機內（方便直接輸入命令）
+        "focus": true,
+ 
+        // 任務結束時不自動關閉面板
+        "close": false
+      },
+ 
+      // 任務的自動執行條件設定
+      "runOptions": {
+        // 當此專案資料夾被開啟時 (folderOpen)，自動觸發並執行此任務
+        "runOn": "folderOpen"
+      }
+    }
+  ]
+}
